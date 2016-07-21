@@ -1,8 +1,4 @@
 test1
 test1
 test1
-<<<<<<< HEAD
-testdev
-=======
-testwd
->>>>>>> wd
+
