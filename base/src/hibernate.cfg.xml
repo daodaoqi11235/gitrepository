@@ -10,5 +10,6 @@
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
      	<mapping resource="com/base/hibernate/beans/User.hbm.xml" />
+     	<mapping resource="com/base/hibernate/beans/Login.hbm.xml" />
     </session-factory>
 </hibernate-configuration>

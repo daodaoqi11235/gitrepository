@@ -3,14 +3,7 @@
 "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 <beans>
 	<!-- 定义国际化消息 -->
-		<bean id="messageSource"
-		class="org.springframework.context.support.ResourceBundleMessageSource">
-		<property name="basename">
-			<value>
-				com.demo.spring.resources.ApplicationResources
-			</value>
-		</property>
-	</bean>
+
 	
 	<!--  配置数据源 -->
 	<bean id="dataSource"
@@ -38,6 +31,7 @@
 		<property name="mappingResources">
 			<list>
 				<value>com/base/hibernate/beans/User.hbm.xml</value>
+				<value>com/base/hibernate/beans/Login.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -62,7 +56,11 @@
 			<ref local="sessionFactory" />
 		</property>
 	</bean>
-		
+	<bean id="loginDAO" class="com.base.hibernate.dao.LoginDAO">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>		
 	<!-- 定义DAO代理 -->
 	<bean id="UserDAOProxy"
 		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
@@ -71,6 +69,21 @@
 		</property>
 		<property name="target">
 			<ref local="userDAO" />
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="insert*">PROPAGATION_REQUIRED</prop>
+				<prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="LoginDAOProxy"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		<property name="target">
+			<ref local="loginDAO" />
 		</property>
 		<property name="transactionAttributes">
 			<props>
@@ -115,8 +128,8 @@
 				<value>com.base.spring.forms.LoginForm</value>
 			</property>
 			<!-- 指定DAO类 -->
-			<property name="userDAO">
-			<ref local="userDAO" />
+			<property name="loginDAO">
+			<ref local="loginDAO" />
 			</property>
 			<!-- 指定验证类 -->
 

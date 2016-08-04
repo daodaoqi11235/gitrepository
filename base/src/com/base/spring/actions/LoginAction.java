@@ -7,6 +7,7 @@ import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
+import com.base.hibernate.dao.LoginDAO;
 import com.base.hibernate.dao.UserDAO;
 import com.base.spring.forms.LoginForm;
 
@@ -14,9 +15,18 @@ import com.base.spring.forms.LoginForm;
 
 public class LoginAction extends SimpleFormController {
 	
-	UserDAO userDAO;	
+	UserDAO userDAO;
+	LoginDAO loginDAO;
 
-    public UserDAO getUserDAO() {
+    public LoginDAO getLoginDAO() {
+		return loginDAO;
+	}
+
+	public void setLoginDAO(LoginDAO loginDAO) {
+		this.loginDAO = loginDAO;
+	}
+
+	public UserDAO getUserDAO() {
 		return userDAO;
 	}
 
@@ -29,7 +39,7 @@ public class LoginAction extends SimpleFormController {
             throws Exception {
 			LoginForm loginForm = (LoginForm) command;
 			
-			if(userDAO.isValid(loginForm.getUsername(), loginForm.getPassword())){
+			if(loginDAO.isValid(loginForm.getUsername(), loginForm.getPassword())){
 				System.out.println(loginForm.getUsername());
 			}
 			
