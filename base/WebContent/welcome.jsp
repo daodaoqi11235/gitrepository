@@ -7,6 +7,10 @@
 <title>welcome</title>
 </head>
 <body>
-vvv
+<form name="form1" action="login.do" method="post">
+<table width="200"border="1">
+
+</table>
+</form>
 </body>
 </html>

@@ -41,9 +41,10 @@ public class LoginAction extends SimpleFormController {
 			
 			if(loginDAO.isValid(loginForm.getUsername(), loginForm.getPassword())){
 				System.out.println(loginForm.getUsername());
+				return new ModelAndView(getSuccessView());
 			}
 			
-            return new ModelAndView(getSuccessView());
+			return new ModelAndView(getFormView());
 
     }
 

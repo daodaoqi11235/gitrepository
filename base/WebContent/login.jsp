@@ -23,9 +23,18 @@
 <td><input type="password" name="password" size=10></td>
 </tr>
 <tr>
-<td colspan="2"><input type="submit" name="submit" value="登陆"><a herf="register.do?method=init">注册新用户</a>
+<td colspan="2"><input type="submit" name="submit" value="登陆">
+<a href="register.do?method=init">注册新用户</a>
 </td>
 </tr>
+<tr>
+    <th>captcha</th>
+    <td>
+             <input type="text" id="captcha" name="captcha" class="text" size=10 />
+              <img id="captchaImage" src="captcha.form"/>
+      </td>
+</tr>
+
 </table>
 </form>
 
