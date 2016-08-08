@@ -27,13 +27,13 @@
 <a href="register.do?method=init">注册新用户</a>
 </td>
 </tr>
-<tr>
+<!-- <tr>
     <th>captcha</th>
     <td>
              <input type="text" id="captcha" name="captcha" class="text" size=10 />
               <img id="captchaImage" src="captcha.form"/>
       </td>
-</tr>
+</tr> -->
 
 </table>
 </form>

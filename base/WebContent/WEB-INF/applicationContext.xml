@@ -56,11 +56,13 @@
 			<ref local="sessionFactory" />
 		</property>
 	</bean>
+	
 	<bean id="loginDAO" class="com.base.hibernate.dao.LoginDAO">
 		<property name="sessionFactory">
 			<ref local="sessionFactory" />
 		</property>
 	</bean>		
+	
 	<!-- 定义DAO代理 -->
 	<bean id="UserDAOProxy"
 		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
@@ -110,12 +112,19 @@
 		</property>
 	</bean>	
 	<!-- 定义映射 -->
+	<bean id="CaptchaInter" class="com.base.interceptor.CaptchaInter"></bean>
 	<bean id="loginMapping"
 		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="mappings">
 			<props>
 				<prop key="/login.do">LoginAction</prop>
+				<prop key="/welcome.do">WelAction</prop>
 			</props>
+		</property>
+		<property name="interceptors">
+			<list>
+				<ref bean="CaptchaInter"></ref>
+			</list>
 		</property>
 	</bean>	
 
@@ -142,6 +151,26 @@
 				<value>welcome</value>
 			</property>
 	</bean>
+	<bean id="WelAction"
+			class="com.base.spring.actions.WelAction">
+			<property name="commandClass">
+				<value>com.base.spring.forms.LoginForm</value>
+			</property>
+			<!-- 指定DAO类 -->
+
+			<!-- 指定验证类 -->
+
+			<!-- 指定失败要返回的页面 -->
+			<property name="formView">
+				<value>login</value>    
+			</property>
+			<!-- 指定成功要返回的页面 -->
+			<property name="successView">
+				<value>welcome</value>
+			</property>
+	</bean>
+	
+	
 	<!-- 定义验证类 -->
 
 
@@ -154,6 +183,24 @@
 
 
 
-
-
+<!--验证码  -->
+<!-- <mvc:interceptors>  
+    使用bean定义一个Interceptor，直接定义在mvc:interceptors根下面的Interceptor将拦截所有的请求  
+    <bean class="com.base.interceptor"/>  
+    <mvc:interceptor>  
+        <mvc:mapping path="/welcome.do"/>  
+        定义在mvc:interceptor下面的表示是对特定的请求才进行拦截的  
+        <bean class="com.base.interceptor"/>  
+    </mvc:interceptor>  
+</mvc:interceptors>  -->
+<!-- <bean id="CaptchaInterceptor"
+class="com.base.interceptor.CaptchaInter"/>
+ 
+<bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">
+    <property name="interceptors">
+        <list>
+           <ref bean="CaptchaInterceptor"/>
+        </list>
+    </property>
+</bean> -->
 </beans>
