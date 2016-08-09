@@ -23,6 +23,8 @@ public class CaptchaInter implements HandlerInterceptor {
     	request.setAttribute("wel", "fesfasefaefadddefa");
     	i++;
     	System.out.println(i);
+    	String code = (String)request.getSession().getAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);  
+    	System.out.println(code);
         return true;  
     }  
       

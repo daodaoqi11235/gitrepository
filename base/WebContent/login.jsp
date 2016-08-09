@@ -1,4 +1,4 @@
-
+<%-- <jsp:include page="/studentManagement.do"></jsp:include> --%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -27,13 +27,17 @@
 <a href="register.do?method=init">注册新用户</a>
 </td>
 </tr>
-<!-- <tr>
-    <th>captcha</th>
-    <td>
-             <input type="text" id="captcha" name="captcha" class="text" size=10 />
-              <img id="captchaImage" src="captcha.form"/>
-      </td>
-</tr> -->
+<tr>
+<td><%=(String) request.getSession().getAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY) %></td>
+<td><img src="kaptcha.do" width="80" height="20" id="kaptchaImage"  style="margin-bottom: -3px"/> 
+    <script type="text/javascript">      
+        $(function(){           
+            $('#kaptchaImage').click(function () {//生成验证码  
+             $(this).hide().attr('src', 'kaptcha.do?' + Math.floor(Math.random()*100) ).fadeIn(); })      
+                  });   
+        </script> 
+        </td>
+</tr>
 
 </table>
 </form>

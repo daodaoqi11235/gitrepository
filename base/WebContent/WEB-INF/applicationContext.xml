@@ -111,24 +111,40 @@
 			<value>.jsp</value>
 		</property>
 	</bean>	
-	<!-- 定义映射 -->
-	<bean id="CaptchaInter" class="com.base.interceptor.CaptchaInter"></bean>
+	<!-- 定义映射 ，定义一个监听器-->
+
+			
+	
+<bean id="CaptchaInter" class="com.base.interceptor.CaptchaInter"></bean>
+
 	<bean id="loginMapping"
 		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="mappings">
 			<props>
 				<prop key="/login.do">LoginAction</prop>
-				<prop key="/welcome.do">WelAction</prop>
 			</props>
 		</property>
-		<property name="interceptors">
+		  		<property name="interceptors">
 			<list>
 				<ref bean="CaptchaInter"></ref>
 			</list>
-		</property>
-	</bean>	
+		</property> 
 
-			
+</bean>
+	<bean id="welcomeMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/welcome.do">WelAction</prop>
+			</props>
+		</property>
+ 		  		<property name="interceptors">
+			<list>
+				<ref bean="CaptchaInter"></ref>
+			</list>
+		</property> 
+</bean>
+
 	<!---定义Action-->
 
 	<bean id="LoginAction"
@@ -169,30 +185,51 @@
 				<value>welcome</value>
 			</property>
 	</bean>
-	
-	
+
 	<!-- 定义验证类 -->
 
+<!-- 定义验证类 -->
+<bean id="captchaProducer" class="com.google.code.kaptcha.impl.DefaultKaptcha">  
+        <property name="config">  
+            <bean class="com.google.code.kaptcha.util.Config">  
+                <constructor-arg>  
+                    <props>  
+                        <prop key="kaptcha.border">no</prop>  
+                        <prop key="kaptcha.border.color">105,179,90</prop>  
+                        <prop key="kaptcha.textproducer.font.color">red</prop>  
+                        <prop key="kaptcha.image.width">250</prop>  
+                        <prop key="kaptcha.textproducer.font.size">90</prop>  
+                        <prop key="kaptcha.image.height">90</prop>  
+                        <prop key="kaptcha.session.key">code</prop>  
+                        <prop key="kaptcha.textproducer.char.length">4</prop>  
+                        <prop key="kaptcha.textproducer.font.names">宋体,楷体,微软雅黑</prop>  
+                    </props>  
+                </constructor-arg>  
+            </bean>  
+        </property>  
+    </bean>  
 
+	<bean id="KaptchaAction"
+			class="com.base.kaptcha.CaptchaImageCreateController">
+	 		<property name="captchaProducer" ref="captchaProducer"/> 
+	</bean>
 
+	<bean id="kaptchaMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/kaptcha.do">KaptchaAction</prop>
+			</props>
+		</property>
 
-
-
+</bean> 
 
 
 
 
 
 <!--验证码  -->
-<!-- <mvc:interceptors>  
-    使用bean定义一个Interceptor，直接定义在mvc:interceptors根下面的Interceptor将拦截所有的请求  
-    <bean class="com.base.interceptor"/>  
-    <mvc:interceptor>  
-        <mvc:mapping path="/welcome.do"/>  
-        定义在mvc:interceptor下面的表示是对特定的请求才进行拦截的  
-        <bean class="com.base.interceptor"/>  
-    </mvc:interceptor>  
-</mvc:interceptors>  -->
+
 <!-- <bean id="CaptchaInterceptor"
 class="com.base.interceptor.CaptchaInter"/>
  
@@ -202,5 +239,5 @@ class="com.base.interceptor.CaptchaInter"/>
            <ref bean="CaptchaInterceptor"/>
         </list>
     </property>
-</bean> -->
+</bean>  -->
 </beans>
