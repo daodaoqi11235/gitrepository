@@ -145,6 +145,22 @@
 		</property> 
 </bean>
 
+
+	<bean id="wordMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/word.do">WordAction</prop>
+			</props>
+		</property>
+ 		  		<property name="interceptors">
+			<list>
+				<ref bean="CaptchaInter"></ref>
+			</list>
+		</property> 
+</bean>
+
+
 	<!---定义Action-->
 
 	<bean id="LoginAction"
@@ -185,7 +201,19 @@
 				<value>welcome</value>
 			</property>
 	</bean>
-
+	<bean id="WordAction"
+			class="com.base.spring.actions.WordAction">
+			<property name="commandClass">
+				<value>com.base.spring.forms.WordForm</value>
+			</property>
+			<!-- 指定DAO类 -->
+			<!-- 指定验证类 -->
+			<!-- 指定失败要返回的页面 -->
+			<!-- 指定成功要返回的页面 -->
+			<property name="successView">
+				<value>login</value>
+			</property>
+	</bean>
 	<!-- 定义验证类 -->
 
 <!-- 定义验证类 -->

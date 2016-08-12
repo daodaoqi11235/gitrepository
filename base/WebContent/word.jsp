@@ -16,6 +16,9 @@
 <td><input type="text" name="t13" size="10"></td>
 <td><input type="text" name="t14" size="10"></td>
 </tr>
+<tr>
+<td colspan="2"><input type="submit" name="submit" value="生成">
+</tr>
 </table>
 </form>
 
